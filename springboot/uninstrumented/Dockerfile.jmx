@@ -17,8 +17,8 @@ RUN git clone $REPO . && mvn package
 FROM openjdk:8-jdk-slim
 
 LABEL  org.label-schema.description="A hello world application to demonstrate Prometheus Java Spring Boot instrumentation." \
-       org.label-schema.usage="docker run -d kubernauts/prometheus_example:uninstrumented" \
-       org.label-schema.docker.cmd="docker run -d kubernauts/prometheus_example:uninstrumented" \
+       org.label-schema.usage="docker run -d -p :8080 -p :8888 kubernautslabs/prometheus_example:jmx" \
+       org.label-schema.docker.cmd="docker run -d -p :8080 -p :8888 kubernautslabs/prometheus_example:jmx" \
        org.label-schema.build-date=$BUILD_DATE \
        org.label-schema.name="kubernauts/prometheus_example" \
        org.label-schema.schema-version="1.0.0-rc.1" \
@@ -27,7 +27,7 @@ LABEL  org.label-schema.description="A hello world application to demonstrate Pr
        org.label-schema.vcs-url="https://github.com/kubernauts/prometheus_example.git" \
        org.label-schema.vendor="kubernauts"
 
-EXPOSE 8080 5555
+EXPOSE 8080 8888
 
 COPY --from=builder /prometheus_example/springboot/uninstrumented/target/prometheus_example-*-SNAPSHOT.jar /uninstrumented.jar
 COPY --from=jmx /jmx_exporter/jmx_prometheus_javaagent/target/jmx_prometheus_javaagent-*-SNAPSHOT.jar /jmx_exporter.jar

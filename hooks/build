@@ -2,26 +2,7 @@
 
 # $IMAGE_NAME var is injected into the build so the tag is correct.
 
-echo "Build hook for Master Image running"
+echo "Build hook running"
 docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
              --build-arg VCS_REF=`git rev-parse --short HEAD` \
-             -f springboot/Dockerfile
              -t $IMAGE_NAME .
-
-echo "Build hook for Uninstrumented Image running"
-docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-             --build-arg VCS_REF=`git rev-parse --short HEAD` \
-             -f springboot/uninstrumented/Dockerfile
-             -t $IMAGE_NAME:uninstrumented .
-
-echo "Build hook for Jmx Image running"
-docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-             --build-arg VCS_REF=`git rev-parse --short HEAD` \
-             -f springboot/uninstrumented/Dockerfile.jmx
-             -t $IMAGE_NAME:jmx .
-
-echo "Build hook for Instrumented Image running"
-docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-             --build-arg VCS_REF=`git rev-parse --short HEAD` \
-             -f springboot/instrumented/Dockerfile
-             -t $IMAGE_NAME:instrumented .
