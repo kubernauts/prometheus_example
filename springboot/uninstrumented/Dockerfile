@@ -1,6 +1,8 @@
 FROM maven:latest as builder
 
 ARG REPO='https://github.com/kubernauts/prometheus_example.git'
+ARG $BUILD_DATE
+ARG $VCS_REF
 
 WORKDIR /prometheus_example
 
