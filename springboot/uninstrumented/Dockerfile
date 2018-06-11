@@ -10,6 +10,9 @@ RUN git clone $REPO . && cd springboot/uninstrumented && mvn package
 
 FROM openjdk:8-jdk-slim
 
+ARG BUILD_DATE
+ARG VCS_REF
+
 LABEL  org.label-schema.description="A hello world application to demonstrate Prometheus Java Spring Boot instrumentation." \
        org.label-schema.usage="docker run -d -p :8080 kubernautslabs/prometheus_example:uninstrumented" \
        org.label-schema.docker.cmd="docker run -d -p :8080 kubernautslabs/prometheus_example:uninstrumented" \
